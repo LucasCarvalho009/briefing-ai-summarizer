@@ -282,7 +282,7 @@ Este projeto é de código aberto e está disponível sob a licença MIT.
 
 ## 👨‍💻 Autor
 
-Lucas Carvalho + IBM BobAi
+- Lucas Carvalho + IBM BobAi
 
 ## 🤝 Contribuindo
 
