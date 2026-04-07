@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BriefingAi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>
+    <img src="abstract-christmas-tree.png" alt="Logo BriefingAi" class="logo-img">Briefing<span>Ai</span>
+</h1>
+            <p class="subtitle"><em><span id="typing-effect"></span></em></p>
+        </header>
+
+        <main class="main-content">
+            <section class="input-section">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="text">
+                        <span class="icon">✎</span>
+                        Colar Texto
+                    </button>
+                    <button class="tab-button" data-tab="file">
+                        <span class="icon">⇡</span>
+                        Upload de Arquivo
+                    </button>
+                </div>
+
+                <div class="tab-content active" id="text-tab">
+                    <div class="input-group">
+                        <label for="text-input">Digite ou cole seu texto aqui:</label>
+                        <textarea 
+                            id="text-input" 
+                            placeholder="Cole seu texto aqui... (mínimo 50 caracteres)"
+                            rows="10"
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="char-count">0</span> caracteres
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="file-tab">
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-icon">❐</div>
+                        <p class="upload-text">Arraste e solte seu arquivo aqui</p>
+                        <p class="upload-subtext">ou</p>
+                        <label for="file-input" class="file-label">
+                            Escolher Arquivo
+                        </label>
+                        <input 
+                            type="file" 
+                            id="file-input" 
+                            accept=".pdf,.txt"
+                            hidden
+                        >
+                        <p class="file-info">Formatos aceitos: PDF, TXT (máx. 10MB)</p>
+                    </div>
+                    <div class="file-preview" id="file-preview" style="display: none;">
+                        <div class="file-details">
+                            <span class="file-icon">▤</span>
+                            <div class="file-info-details">
+                                <p class="file-name" id="file-name"></p>
+                                <p class="file-size" id="file-size"></p>
+                            </div>
+                            <button class="remove-file" id="remove-file">✕</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-section">
+                    <button class="btn-primary" id="summarize-btn">
+                        <span class="btn-icon"></span>
+                        Gerar Resumo
+                    </button>
+                </div>
+            </section>
+
+            <section class="loading-section" id="loading-section" style="display: none;">
+                <div class="spinner"></div>
+                <p class="loading-text">Gerando resumo...</p>
+                <p class="loading-subtext">Isso pode levar alguns segundos</p>
+            </section>
+
+            <section class="results-section" id="results-section" style="display: none;">
+                <div class="results-header">
+                    <h2>◈ Resultados</h2>
+                    <div class="method-badge" id="method-badge"></div>
+                </div>
+
+                <div class="result-card">
+                    <div class="card-header">
+                        <h3>≣ Resumo</h3>
+                        <button class="copy-btn" data-copy="summary" title="Copiar resumo">
+                            ⧉
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <p id="summary-text"></p>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="card-header">
+                        <h3>⌖ Pontos-Chave</h3>
+                        <button class="copy-btn" data-copy="bullets" title="Copiar pontos-chave">
+                           ⧉
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <ul id="bullet-points" class="bullet-list"></ul>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button class="btn-secondary" id="new-summary-btn">
+                        <span class="btn-icon">↻</span>
+                        Novo Resumo
+                    </button>
+                    <button class="btn-secondary" id="copy-all-btn">
+                        <span class="btn-icon">⧉</span>
+                        Copiar Tudo
+                    </button>
+                </div>
+            </section>
+
+            <section class="error-section" id="error-section" style="display: none;">
+                <div class="error-card">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Ops! Algo deu errado</h3>
+                    <p id="error-message"></p>
+                    <button class="btn-secondary" id="retry-btn">
+                        <span class="btn-icon">↻</span>
+                        Tentar Novamente
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Desenvolvido com IBM BobAi</p>
+            <p class="footer-note">
+                <span class="status-indicator" id="api-status">🔴</span>
+                API Status: <span id="api-status-text">Verificando...</span>
+            </p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast" style="display: none;">
+        <span id="toast-message"></span>
+    </div>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed('#typing-effect', {
+            strings: ['Elimine o ruído dos seus textos.', 'Tenha apenas o essencial.', 'Tenha BriefingAi.'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 3000,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|'
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
